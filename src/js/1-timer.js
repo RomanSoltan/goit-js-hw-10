@@ -43,11 +43,12 @@ const options = {
     const currentDate = new Date();
 
     if(selectedDate <= currentDate) {
-      iziToast.error({
+      iziToast.show({
         message: "Please choose a date in the future",
         position: "topRight",
         closeOnClick: true,
         progressBar: false,
+        backgroundColor: "#ef4040",
       });
       startBtn.disabled = true;
     }
