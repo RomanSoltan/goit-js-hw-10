@@ -1,22 +1,25 @@
-import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css";
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const startBtn = document.querySelector("button[data-start]");
-const inputPicker = document.querySelector("#datetime-picker");
-const dataDays = document.querySelector("span[data-days]");
-const dataHours = document.querySelector("span[data-hours]");
-const dataMins = document.querySelector("span[data-minutes]");
-const dataSecs = document.querySelector("span[data-seconds]");
+const startBtn = document.querySelector('button[data-start]');
+const inputPicker = document.querySelector('#datetime-picker');
+const dataDays = document.querySelector('span[data-days]');
+const dataHours = document.querySelector('span[data-hours]');
+const dataMins = document.querySelector('span[data-minutes]');
+const dataSecs = document.querySelector('span[data-seconds]');
 
-startBtn.addEventListener("click", timerStart);
-inputPicker.addEventListener("change", choiceDate);
+startBtn.addEventListener('click', timerStart);
+inputPicker.addEventListener('change', choiceDate);
+
+let userSelectedDate = null;
+let intervalId;
 
 startBtn.disabled = true;
 
 function addLeadingZero(value) {
-  return String(value).padStart(2, "0");
+  return String(value).padStart(2, '0');
 }
 
 function convertMs(ms) {
@@ -42,29 +45,25 @@ const options = {
     const selectedDate = selectedDates[0];
     const currentDate = new Date();
 
-    if(selectedDate <= currentDate) {
+    if (selectedDate <= currentDate) {
       iziToast.show({
-        message: "Please choose a date in the future",
-        position: "topRight",
+        message: 'Please choose a date in the future',
+        position: 'topRight',
         closeOnClick: true,
         progressBar: false,
-        backgroundColor: "#ef4040",
+        backgroundColor: '#ef4040',
       });
       startBtn.disabled = true;
-    }
-    else {
+    } else {
+      userSelectedDate = selectedDate;
       startBtn.disabled = false;
     }
   },
 };
 
-flatpickr("input#datetime-picker", options);
-
-let userSelectedDate = null;
-let intervalId;
+flatpickr(inputPicker, options);
 
 function timerStart() {
-
   startBtn.disabled = true;
   inputPicker.disabled = true;
 
@@ -72,17 +71,17 @@ function timerStart() {
     const currentDate = new Date();
     const timer = userSelectedDate - currentDate;
 
-    if(timer <= 0) {
+    if (timer <= 0) {
       clearInterval(intervalId);
       updateTimer(0, 0, 0, 0);
       inputPicker.disabled = false;
       return;
-    } 
+    }
 
     const { days, hours, mins, secs } = convertMs(timer);
     updateTimer(days, hours, mins, secs);
   }, 1000);
-};
+}
 
 function updateTimer(days, hours, mins, secs) {
   dataDays.textContent = addLeadingZero(days);
@@ -93,13 +92,10 @@ function updateTimer(days, hours, mins, secs) {
 
 function choiceDate(event) {
   userSelectedDate = new Date(event.target.value);
-  
-  if(userSelectedDate > new Date()) {
+
+  if (userSelectedDate > new Date()) {
     startBtn.disabled = false;
   } else {
-    startBtn.disabled = true
+    startBtn.disabled = true;
   }
-};
-
-
-
+}

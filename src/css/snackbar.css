@@ -30,8 +30,8 @@ fieldset {
   border: 1px solid #808080;
 }
 
-fieldset:hover, 
-fieldset:focus, 
+fieldset:hover,
+fieldset:focus,
 input[type='number']:hover,
 input[type='number']:focus {
   border-color: #000;
