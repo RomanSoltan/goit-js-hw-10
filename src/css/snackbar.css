@@ -8,7 +8,7 @@
   margin-bottom: 8px;
 }
 
-input[type='number'] {
+.form input[name="delay"] {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -32,8 +32,8 @@ fieldset {
 
 fieldset:hover,
 fieldset:focus,
-input[type='number']:hover,
-input[type='number']:focus {
+.form input[name="delay"]:hover,
+.form input[name="delay"]:focus {
   border-color: #000;
   cursor: pointer;
 }
@@ -57,7 +57,7 @@ fieldset label {
   color: #2e2f42;
 }
 
-button[type='submit'] {
+.form button[type='submit'] {
   border-radius: 8px;
   padding: 8px 16px;
   min-width: 360px;
@@ -72,7 +72,7 @@ button[type='submit'] {
   color: #fff;
 }
 
-button[type='submit']:hover,
-button[type='submit']:focus {
+.form button[type='submit']:hover,
+.form button[type='submit']:focus {
   background-color: #6c8cff;
 }
